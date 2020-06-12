@@ -81,6 +81,7 @@ export const getGlobalFeeds = async (params) => {
  * function used to call API for get favourite article data
  */
 export const getFavouriteArticles = async (params) => {
+  const token = localStorage.getItem('AuthToken');
   const { favorited, limit, offset } = params;
   const url = `/articles?favorited=${favorited}&limit=${limit}&offset=${offset}`;
   try {
@@ -98,6 +99,7 @@ export const getFavouriteArticles = async (params) => {
  * function used to call API for get data for my article
  */
 export const getMyArticles = async (params) => {
+  const token = localStorage.getItem('AuthToken');
   const { author, limit, offset } = params;
   const url = `/articles?author=${author}&limit=${limit}&offset=${offset}`;
   try {
@@ -131,6 +133,7 @@ export const getSlugArticles = async (params) => {
  * function used to call API for post/delete favourite articles
  */
 export const getClickFavouriteArticles = async (params) => {
+  const token = localStorage.getItem('AuthToken');
   const { slug, methodType } = params;
   const url = `/articles/${slug}/favorite`;
   const method = methodType;
@@ -165,6 +168,7 @@ export const postNewArticle = async (params) => {
  * function used to call API for delete article 
  */
 export const deleteArticle = async (params) => {
+  const token = localStorage.getItem('AuthToken');
   const { slug } = params;
   const url = `/articles/${slug}`;
   const method = 'delete';

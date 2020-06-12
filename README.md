@@ -62,7 +62,7 @@ This assignment basically covers the followign features:-
 ### Installation
 
 You can directly access application from deployed instance:
-Path: 
+Path: https://article-details-assignment.herokuapp.com/
 
 Take clone from
 
