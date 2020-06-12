@@ -1,3 +1,8 @@
+/**
+ * 
+ * @param {object} state 
+ * @param {object} action 
+ */
 const CommentData = (state = { comment: {}, deletecomment: {}, postcomment: {}, loading: false }, action) => {
   const { type, payload } = action;
   switch (type) {

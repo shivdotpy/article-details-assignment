@@ -3,6 +3,11 @@ import {
   getClickFavouriteArticles, postNewArticle, deleteArticle, updateArticle
 } from './../service/articleService';
 
+/**
+ * 
+ * @param {object} params
+ * should dispatch action for getUserFeed
+ */
 export const getUserFeed = (params) => {
   return (dispatch) => {
     dispatch({
@@ -25,6 +30,11 @@ export const getUserFeed = (params) => {
   }
 }
 
+/**
+ * 
+ * @param {object} params
+ * should dispatch action for getTagList
+ */
 export const getTagList = (params) => {
   return (dispatch) => {
     dispatch({
@@ -47,6 +57,11 @@ export const getTagList = (params) => {
   }
 }
 
+/**
+ * 
+ * @param {object} params
+ * should dispatch action for getTagData
+ */
 export const getTagData = (params) => {
   return (dispatch) => {
     dispatch({
@@ -69,6 +84,11 @@ export const getTagData = (params) => {
   }
 }
 
+/**
+ * 
+ * @param {object} params
+ * should dispatch action for getGlobalFeed
+ */
 export const getGlobalFeed = (params) => {
   return (dispatch) => {
     dispatch({
@@ -91,6 +111,11 @@ export const getGlobalFeed = (params) => {
   }
 }
 
+/**
+ * 
+ * @param {object} params
+ * should dispatch action for getFavouriteArticle
+ */
 export const getFavouriteArticle = (params) => {
   return (dispatch) => {
     dispatch({
@@ -113,6 +138,11 @@ export const getFavouriteArticle = (params) => {
   }
 }
 
+/**
+ * 
+ * @param {object} params
+ * should dispatch action for getMyArticle
+ */
 export const getMyArticle = (params) => {
   return (dispatch) => {
     dispatch({
@@ -135,6 +165,11 @@ export const getMyArticle = (params) => {
   }
 }
 
+/**
+ * 
+ * @param {object} params
+ * should dispatch action for getSlugArticle
+ */
 export const getSlugArticle = (params) => {
   return (dispatch) => {
     dispatch({
@@ -157,6 +192,11 @@ export const getSlugArticle = (params) => {
   }
 }
 
+/**
+ * 
+ * @param {object} params
+ * should dispatch action for getFavouriteArticle
+ */
 export const getClickFavouriteArticle = (params) => {
   return (dispatch) => {
     dispatch({
@@ -179,6 +219,11 @@ export const getClickFavouriteArticle = (params) => {
   }
 }
 
+/**
+ * 
+ * @param {object} params
+ * should dispatch action for postNewArticleData
+ */
 export const postNewArticleData = (params) => {
   return (dispatch) => {
     dispatch({
@@ -201,6 +246,11 @@ export const postNewArticleData = (params) => {
   }
 }
 
+/**
+ * 
+ * @param {object} params
+ * should dispatch action for deleteArticleData
+ */
 export const deleteArticleData = (params) => {
   return (dispatch) => {
     dispatch({
@@ -223,6 +273,11 @@ export const deleteArticleData = (params) => {
   }
 }
 
+/**
+ * 
+ * @param {object} params
+ * should dispatch action for updateArticleData
+ */
 export const updateArticleData = (params) => {
   return (dispatch) => {
     dispatch({

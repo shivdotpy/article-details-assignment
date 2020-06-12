@@ -1,3 +1,8 @@
+/**
+ * 
+ * @param {object} state 
+ * @param {object} action 
+ */
 const FollowData = (state = { follow: {}, loading: false }, action) => {
   const { type, payload } = action;
   switch (type) {

@@ -1,6 +1,6 @@
 import React from "react";
 import "./articleDetails.css";
-import { getSlugArticle, deleteArticleData } from '../../../store/actions/articleActions';
+import { getSlugArticle, deleteArticleData, getClickFavouriteArticle } from '../../../store/actions/articleActions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter, Link } from 'react-router-dom';
@@ -24,13 +24,33 @@ class Details extends React.Component {
     const { getSlugArticle, getComment, getCommentData } = this.props;
     getSlugArticle({ slug: this.props.match.params.slug });
     getCommentData({ slug: this.props.match.params.slug });
-
   }
 
+  /**
+   * favouriteBtnClick method call to click on favourite button
+   * @param {string} slugData
+   * should call getClickFavouriteArticle method with methodType post/delete evaluate by condition
+   */
+  favouriteBtnClick(slugData) {
+    const { getClickFavouriteArticle } = this.props;
+    if (this.props.FavoriteClickArticles.favorited) {
+      getClickFavouriteArticle({ slug: slugData, methodType: "DELETE" });
+    } else {
+      getClickFavouriteArticle({ slug: slugData, methodType: "POST" });
+    }
+  }
+
+  /**
+   * editSelectedArticle call method when click on edit article
+   * should navigate to add article page with filled data
+   */
   editSelectedArticle() {
     this.props.history.push(`/article/${this.props.match.params.slug}`);
   }
 
+  /**
+   * deleteSelectedArticle call method when delete the selected article
+   */
   deleteSelectedArticle() {
     const { deleteArticleData, getUserFeed, getGlobalFeed, getTagList } = this.props;
     deleteArticleData({ slug: this.props.match.params.slug });
@@ -40,11 +60,20 @@ class Details extends React.Component {
     this.props.history.push('/');
   }
 
+  /**
+   * onChangeCommentValue call when to change the comment value
+   * {event} event
+   * {string} name
+   */
   onChangeCommentValue = (event, name) => {
     const { value } = event.target;
     this.setState({ [name]: value });
   }
 
+  /**
+   * publishComment when add comment and publish it
+   * {event} event
+   */
   publishComment = (event) => {
     const { postCommentData, PostComment } = this.props;
     event.preventDefault();
@@ -68,14 +97,17 @@ class Details extends React.Component {
     }
   }
 
-  favouriteTabClick = () => {
-    console.log('favourite')
-  }
-
+  /**
+   * followBtnClick call when to click on follow button
+   */
   followBtnClick = () => {
     console.log('followBtnClick')
   }
 
+  /**
+   * deleteComment call when to delete comment call respective api for that
+   * @param {number} id 
+   */
   deleteComment(id) {
     const { getDeleteData, getCommentData } = this.props;
     getDeleteData({ slug: this.props.match.params.slug, id: id }).then(() => {
@@ -85,9 +117,9 @@ class Details extends React.Component {
 
   render() {
     let flagFollow = false;
-    const { SlugArticles, getComment } = this.props;
+    const { SlugArticles, getComment, FavoriteClickArticles } = this.props;
     if (SlugArticles && SlugArticles.author?.username && this.state.username) {
-      if (this.state.username == SlugArticles.author.username) {
+      if (this.state.username === SlugArticles.author.username) {
         flagFollow = true;
       }
     }
@@ -122,9 +154,9 @@ class Details extends React.Component {
                       <button className="btn btn-outline-secondary btn-sm" href="" onClick={() => this.followBtnClick()}>
                         Follow {SlugArticles.author?.username}
                       </button>
-                      <button className="btn btn-outline-danger btn-sm" onClick={() => this.favouriteTabClick()}>
-                        Favourite
-                 </button>
+                      <button className="btn btn-outline-danger btn-sm" onClick={() => this.favouriteBtnClick(SlugArticles.slug)}>
+                        {FavoriteClickArticles && FavoriteClickArticles.favorited ? 'UnFavorited Atricle' : 'Favorited Atricle'}
+                      </button>
                     </>
                   )}
 
@@ -137,7 +169,6 @@ class Details extends React.Component {
               <div style={{ marginTop: 10 }}>
                 {(SlugArticles.tagList && SlugArticles.tagList.length > 0) && SlugArticles.tagList.map((tags, i) => {
                   return (
-                    // <Link to="" key={tags} onClick={() => this.clickOnTag(tags)} className="tag-item">{tags}</Link>
                     <div className="render-tag">{tags}</div>
                   )
                 })
@@ -170,9 +201,9 @@ class Details extends React.Component {
                       <button className="btn btn-outline-secondary btn-sm" href="" onClick={() => this.followBtnClick()}>
                         Follow {SlugArticles.author?.username}
                       </button>
-                      <button className="btn btn-outline-danger btn-sm" onClick={() => this.favouriteTabClick()}>
-                        Favourite
-                 </button>
+                      <button className="btn btn-outline-danger btn-sm" onClick={() => this.favouriteBtnClick(SlugArticles.slug)}>
+                        {FavoriteClickArticles && FavoriteClickArticles.favorited ? 'UnFavorited Atricle' : 'Favorited Atricle'}
+                      </button>
                     </>
                   )}
               </div>
@@ -201,8 +232,8 @@ class Details extends React.Component {
                       <a className="comment-author" href="#/">
                         <img alt="" src={comment.author?.image} className="comment-author-img" />
                       </a>
-                  &nbsp;
-                  <a className="comment-author" href="">{comment.author?.username}</a>
+                      &nbsp;
+                      <a className="comment-author" href="">{comment.author?.username}</a>
                       <span className="date-posted" >{new Date(comment.createdAt).toDateString()}</span>
                       <button className="delete-button" onClick={() => this.deleteComment(comment.id)}>Delete</button>
                     </div>
@@ -224,6 +255,7 @@ const mapStateToProps = (state) => {
     deleteArticle: state.Articles.deleteArticle,
     PostComment: state.CommentData.postComment,
     getComment: state.CommentData.comment,
+    FavoriteClickArticles: state.Articles.getClickFavouriteArticles
   };
 };
 //This deals with Redux store’s dispatchProps 
@@ -237,7 +269,8 @@ const mapDispatchToProps = dispatch => ({
     getUserFeed,
     getGlobalFeed,
     getTagList,
-    getDeleteData
+    getDeleteData,
+    getClickFavouriteArticle
   },
     dispatch),
 });

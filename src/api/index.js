@@ -1,5 +1,10 @@
 import axios from "axios";
 
+/**
+ * 
+ * @param {object}
+ * should call axios for api calls  
+ */
 export const ApiCall = ({
   url,
   method = 'get',

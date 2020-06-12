@@ -1,4 +1,9 @@
 import { ApiCall } from '../../api';
+/**
+ * 
+ * @param {object} params
+ * function used to call API for get comment data 
+ */
 export const getComment = async (params) => {
   const { slug } = params;
   const token = localStorage.getItem('AuthToken')
@@ -10,7 +15,12 @@ export const getComment = async (params) => {
     throw e;
   }
 };
-//for delete comment data
+
+/**
+ * 
+ * @param {object} params
+ * function used to call API for delete comment
+ */
 export const deleteComment = async (params) => {
   const { slug } = params;
   const { id } = params;
@@ -23,6 +33,12 @@ export const deleteComment = async (params) => {
     throw e;
   }
 };
+
+/**
+ * 
+ * @param {object} params
+ * function used to call API for get post comment 
+ */
 export const postComment = async (params) => {
   const { slug } = params;
   const { comment } = params;

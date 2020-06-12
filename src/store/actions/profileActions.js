@@ -1,5 +1,10 @@
 import { getProfile } from './../service/profileService';
 
+/**
+ * 
+ * @param {object} params
+ * should dispatch action for profile 
+ */
 export const getProfileData = (params) => {
   return (dispatch) => {
     dispatch({

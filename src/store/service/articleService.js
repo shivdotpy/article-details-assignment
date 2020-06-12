@@ -1,5 +1,11 @@
 import { ApiCall } from '../../api';
 const token = localStorage.getItem('AuthToken');
+
+/**
+ * 
+ * @param {object} params
+ * function used to call API for get user feeds 
+ */
 export const getUserFeeds = async (params) => {
   const token = localStorage.getItem('AuthToken');
   const { limit, offset } = params;
@@ -13,10 +19,15 @@ export const getUserFeeds = async (params) => {
   }
 };
 
+/**
+ * 
+ * @param {object} params
+ * function used to call API for get tags list
+ */
+
 export const getTagLists = async (params) => {
   const url = `/tags`;
   try {
-
     const { data } = await ApiCall({ url: url, authorizationToken: token });
     return data;
   } catch (e) {
@@ -24,6 +35,11 @@ export const getTagLists = async (params) => {
   }
 };
 
+/**
+ * 
+ * @param {object} params
+ * function used to call API for get feeds data according to tag 
+ */
 export const getTagDatas = async (params) => {
   // const token = localStorage.getItem('AuthToken');
   const { limit, offset, tag } = params;
@@ -42,6 +58,11 @@ export const getTagDatas = async (params) => {
   }
 };
 
+/**
+ * 
+ * @param {object} params
+ * function used to call API for global feeds
+ */
 export const getGlobalFeeds = async (params) => {
   const { limit, offset } = params;
   const url = `/articles?limit=${limit}&offset=${offset}`;
@@ -54,6 +75,11 @@ export const getGlobalFeeds = async (params) => {
   }
 };
 
+/**
+ * 
+ * @param {object} params
+ * function used to call API for get favourite article data
+ */
 export const getFavouriteArticles = async (params) => {
   const { favorited, limit, offset } = params;
   const url = `/articles?favorited=${favorited}&limit=${limit}&offset=${offset}`;
@@ -66,6 +92,11 @@ export const getFavouriteArticles = async (params) => {
   }
 };
 
+/**
+ * 
+ * @param {object} params
+ * function used to call API for get data for my article
+ */
 export const getMyArticles = async (params) => {
   const { author, limit, offset } = params;
   const url = `/articles?author=${author}&limit=${limit}&offset=${offset}`;
@@ -78,11 +109,15 @@ export const getMyArticles = async (params) => {
   }
 };
 
+/**
+ * 
+ * @param {object} params
+ * function used to call API for get articles based on slug 
+ */
 export const getSlugArticles = async (params) => {
   const { slug } = params;
   const url = `/articles/${slug}`;
   try {
-
     const { data } = await ApiCall({ url: url, authorizationToken: token });
     return data;
   } catch (e) {
@@ -90,6 +125,11 @@ export const getSlugArticles = async (params) => {
   }
 };
 
+/**
+ * 
+ * @param {object} params
+ * function used to call API for post/delete favourite articles
+ */
 export const getClickFavouriteArticles = async (params) => {
   const { slug, methodType } = params;
   const url = `/articles/${slug}/favorite`;
@@ -102,6 +142,11 @@ export const getClickFavouriteArticles = async (params) => {
   }
 };
 
+/**
+ * 
+ * @param {object} params
+ * function used to call API for post new added article 
+ */
 export const postNewArticle = async (params) => {
   const token = localStorage.getItem('AuthToken');
   const { article } = params;
@@ -114,6 +159,11 @@ export const postNewArticle = async (params) => {
   }
 };
 
+/**
+ * 
+ * @param {object} params
+ * function used to call API for delete article 
+ */
 export const deleteArticle = async (params) => {
   const { slug } = params;
   const url = `/articles/${slug}`;
@@ -126,7 +176,13 @@ export const deleteArticle = async (params) => {
   }
 };
 
+/**
+ * 
+ * @param {object} params
+ * function used to call API for update article 
+ */
 export const updateArticle = async (params) => {
+  const token = localStorage.getItem('AuthToken');
   const { article } = params;
   const { slug } = params;
   const url = `/articles/${slug}`;

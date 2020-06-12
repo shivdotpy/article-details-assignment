@@ -1,5 +1,10 @@
 import { getComment, deleteComment, postComment } from './../service/commentService';
 
+/**
+ * 
+ * @param {object} params
+ * should dispatch action for getCommentData
+ */
 export const getCommentData = (params) => {
   return (dispatch) => {
     dispatch({
@@ -22,6 +27,11 @@ export const getCommentData = (params) => {
   }
 }
 
+/**
+ * 
+ * @param {object} params
+ * should dispatch action for getDeleteData
+ */
 export const getDeleteData = (params) => {
   return (dispatch) => {
     dispatch({
@@ -44,6 +54,11 @@ export const getDeleteData = (params) => {
   }
 }
 
+/**
+ * 
+ * @param {object} params
+ * should dispatch action for postCommentData
+ */
 export const postCommentData = (params) => {
   return (dispatch) => {
     dispatch({
@@ -65,9 +80,3 @@ export const postCommentData = (params) => {
     };
   }
 }
-
-
-
-
-
-

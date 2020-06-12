@@ -24,6 +24,10 @@ class BannerUserName extends React.Component {
         this.setState({ profile: nextProps.Profile })
     }
 
+    /**
+     * onFollowBtnClick call method when click on follow button
+     * {string} username
+     */
     onFollowBtnClick = (username) => {
         const { getFollowData } = this.props;
         getFollowData({ username: username })

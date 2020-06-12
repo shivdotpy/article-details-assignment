@@ -21,7 +21,6 @@ function AddPost(props) {
                 let tagsToRender = [];
                 if (editableDataForEdit?.tagList && editableDataForEdit.tagList.length > 0) {
                     editableDataForEdit.tagList.forEach(element => {
-                        console.log('element', element);
                         tagsToRender.push(element);
                     });
                 }
@@ -36,6 +35,10 @@ function AddPost(props) {
         }
     }, []);
 
+    /**
+     * publishArticle should call when to publishing article
+     * @param {event} e 
+     */
     const PublishArticle = (e) => {
         const { postNewArticleData, updateArticleData } = props;
         e.preventDefault();
@@ -82,6 +85,10 @@ function AddPost(props) {
         }
     }
 
+    /**
+     * onValueChange should call when value changed
+     * @param {event} e 
+     */
     const onValueChange = (e) => {
         let tempVal = Object.assign({}, articleForm);
         let name = e.target.name;

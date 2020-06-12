@@ -23,11 +23,21 @@ class SignIn extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  /**
+   * checkEmailValidation: should validate Email
+   * {string} enteredEmail email which you entered to validate
+   * should return boolean value after validating email
+   */
   checkEmailValidation = (enteredEmail) => {
     const emailRgx = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     return emailRgx.test(String(enteredEmail).toLowerCase());
   }
 
+  /**
+   * handleChange: should work on changes applied
+   * {string} fieldName fields name which you entered
+   * {event} event
+   */
   handleChange = (event, fieldName) => {
     const { value } = event.target;
     this.setState({ [fieldName]: value });
@@ -66,9 +76,13 @@ class SignIn extends Component {
     }
   }
 
+  /**
+   * handleSubmit: should handle submit button click functionality
+   * should call Api method to login user
+   * {event} event
+   */
   handleSubmit = (e) => {
     e.preventDefault();
-
     const { email, password } = this.state;
     const { authLogin } = this.props;
     if (email && password) {

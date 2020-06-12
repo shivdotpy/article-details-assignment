@@ -1,5 +1,10 @@
 import { ApiCall } from '../../api';
-const token = localStorage.getItem('AuthToken')
+
+/**
+ * 
+ * @param {object} params
+ * function used to call API for login user 
+ */
 export const loginService = async (params) => {
   const url = `/users/login`;
   try {
@@ -9,6 +14,12 @@ export const loginService = async (params) => {
     throw e;
   }
 };
+
+/**
+ * 
+ * @param {object} params
+ * function used to call API for sign up user 
+ */
 export const signUpService = async (params) => {
   const url = `/users`;
   try {

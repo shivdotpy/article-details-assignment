@@ -18,6 +18,9 @@ class Header extends React.Component {
     this.setState({ token: localStorage.getItem('AuthToken') })
   }
 
+  /**
+   * logoutBtnClick should remove items from localstorage and should route to login page
+   */
   logoutBtnClick = () => {
     const token = localStorage.removeItem('AuthToken');
     const username = localStorage.removeItem('UserName');

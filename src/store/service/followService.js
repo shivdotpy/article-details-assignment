@@ -1,4 +1,9 @@
 import { ApiCall } from '../../api';
+/**
+ * 
+ * @param {object} params
+ * function is used to call API for get follow-up data 
+ */
 export const getFollow = async (params) => {
   const { username } = params;
   const token = localStorage.getItem('AuthToken')

@@ -1,5 +1,10 @@
 import { loginService, signUpService } from './../service/authService';
 
+/**
+ * 
+ * @param {object} params
+ * should dispatch action for login
+ */
 export const login = (params) => {
   return (dispatch) => {
     dispatch({
@@ -22,6 +27,11 @@ export const login = (params) => {
   }
 }
 
+/**
+ * 
+ * @param {object} params
+ * should dispatch action for signUp
+ */
 export const signUp = (params) => {
   return (dispatch) => {
     dispatch({

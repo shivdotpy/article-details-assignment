@@ -1,3 +1,8 @@
+/**
+ * 
+ * @param {object} state 
+ * @param {object} action 
+ */
 const AuthReducer = (state = {
   loggedInUser: {}, registeredUser: {},
   loading: false

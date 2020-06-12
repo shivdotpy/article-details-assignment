@@ -8,22 +8,25 @@ import { bindActionCreators } from 'redux';
 class RenderTab extends React.Component {
     constructor(props) {
         super(props)
-        console.log("asfdsadf", props)
         this.favouriteBtnClick = this.favouriteBtnClick.bind(this);
     }
 
+    /**
+     * favouriteBtnClick method call to click on favourite button
+     * @param {string} slugData
+     * should call getClickFavouriteArticle method with methodType post/delete evaluate by condition
+     */
     favouriteBtnClick(slugData) {
         const { getClickFavouriteArticle } = this.props;
         if (this.props.FavoriteClickArticles.favorited) {
-            getClickFavouriteArticle({ slug: slugData, method: "DELETE" });
+            getClickFavouriteArticle({ slug: slugData, methodType: "DELETE" });
         } else {
-            getClickFavouriteArticle({ slug: slugData, method: "POST" });
+            getClickFavouriteArticle({ slug: slugData, methodType: "POST" });
         }
     }
 
     render() {
         const { FavoriteClickArticles } = this.props;
-        console.log('FavoriteClickArticles', FavoriteClickArticles);
         return (
             <div>
                 <div className="feed-item" >
@@ -58,7 +61,7 @@ class RenderTab extends React.Component {
                 </ul>
                 <div className="feed-favorite">
                     <button className="feed-favorite-btn" onClick={() => this.favouriteBtnClick(this.props.article.slug)}>
-                        <i></i>{this.props.article.favoritesCount}
+                        <i></i>{(FavoriteClickArticles && FavoriteClickArticles.favoritesCount) ? FavoriteClickArticles.favoritesCount : this.props.article.favoritesCount}
                     </button>
                 </div>
             </div>

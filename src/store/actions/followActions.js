@@ -1,5 +1,10 @@
 import { getFollow } from './../service/followService';
 
+/**
+ * 
+ * @param {object} params
+ * should dispatch action for follow data
+ */
 export const getFollowData = (params) => {
   return (dispatch) => {
     dispatch({

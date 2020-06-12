@@ -1,3 +1,8 @@
+/**
+ * 
+ * @param {object} state 
+ * @param {object} action 
+ */
 const ProfileData = (state = { profile: {}, loading: false }, action) => {
   const { type, payload } = action;
   switch (type) {

@@ -26,15 +26,31 @@ class SignUp extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  /**
+   * checkEmailValidation: should validate Email
+   * {string} enteredEmail email which you entered to validate
+   * should return boolean value after validating email
+   */
   checkEmailValidation = (enteredEmail) => {
     const emailRgx = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     return emailRgx.test(String(enteredEmail).toLowerCase());
   }
+
+  /**
+   * validateUserName: should validate Name
+   * {string} name which you entered to validate
+   * should return boolean value after validating email
+   */
   validateUserName = (name) => {
     const nameRgx = /^[a-zA-Z ]*$/;
     return name.match(nameRgx);
   }
 
+  /**
+   * handleChange: should work on changes applied
+   * {string} fieldName fields name which you entered
+   * {event} event
+   */
   handleChange = (event, fieldName) => {
     const { value } = event.target;
     this.setState({ [fieldName]: value });
@@ -91,6 +107,11 @@ class SignUp extends Component {
     }
   }
 
+  /**
+   * handleSubmit: should handle submit button click functionality
+   * should call Api method to register user
+   * {event} event
+   */
   handleSubmit = (event) => {
     event.preventDefault();
     const { signUp } = this.props;

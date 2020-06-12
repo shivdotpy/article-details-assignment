@@ -1,3 +1,8 @@
+/**
+ * 
+ * @param {object} state 
+ * @param {object} action 
+ */
 const Articles = (state = {
   userArticles: [], tagList: [], tagData: [], globalArticles: [], favouriteArticles: [], myArticles: [],
   slugArticles: [], getClickFavouriteArticles: [], newPostArticle: [], delteArticle: [], updateArticle: [],

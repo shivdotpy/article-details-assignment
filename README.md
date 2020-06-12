@@ -1,68 +1,80 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# article-details-assignment
 
-## Available Scripts
+This assignment basically covers the followign features:-
+- Create User his own account (user registrating).
+- User registration page has few validations but fulfilling them able to register user successfully.
+- User can login by using his credentials (User Login).
+- Login page has few validations but fulfilling them able to login successfully.
 
-In the project directory, you can run:
+- If User Not Login:-
+    - At Home screen (without login) user able to see global feeds (articles) and tag list.
+    - On click perticular tag should render one tab along with global feed for that perticular tag which shows article related to that tab.
+    - user able to see added tags and faviourate count along with user image, user name, title, description and read more field.
+    - on click user image and user name should render to user profile page.
+    - where user can see "My Article" and "Favorite Article" tabs.
+    - which have respectivally data over there.
+    - on click user image, user name, description and read more section should navigate to article detail page.
+    - where on header user info displays and below that user able to show added comments.
 
-### `npm start`
+    - If user is not login then he can not perform any kind of action like:
+        - user not able mark favorite or unfavorite any article.
+        - user can not able to add new article and he also not able to edit or delte previous added articles.
+        - user not able add/delete comments as well.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- If User Log In:-
+    - After login at home screen user able to see two tab YOUR FEEDS and GLOBAL FEEDS.
+    - New post link present in header at where user can create new article.
+    - On publish article from new post page user should navigate to article detail page.
+    - Article which he added recently.
+    - where on header along with user information two button displays that are : "Edit Article" and "Delete Article".
+        - On click Edit Article user should navigate to Add post page where all field displays with pre filled values.
+        - At where he can update his added article and on publish again redirect to article detail page.
+        - On click delete button article is deleted and user should navigate to home page.
+    - These two buttons along with user image and user nave displays in the page body above the comment section as well.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+    - comment section also persent on the same page as well:
+        - we can publish our own comment over here.
+        - we can add multiple comments.
+        - we can delete our previous added comment over here by clicking delete button.
+        # Note: Edit Comment functionality is not present in the reference application and Edit comment API is not presented in the given API Doc. So I was not implement that functionality for now.
+        - we able to delete all added comment in one go.
 
-### `npm test`
+    - user able mark favorite or unfavorite any article by click the count button present in the section.
+    - On click perticular tag should render one tab along with global feed for that perticular tag which shows article related to that tab.
+    - user able to see added tags and faviourate count along with user image, user name, title, description and read more field.
+    - on click user image and user name should render to user profile page.
+    - where user can see "My Article" and "Favorite Article" tabs.
+    - which have respectivally data over there.
+    - on click user image, user name, description and read more section should navigate to article detail page.
+    - where on header user info displays and below that user able to show added comments.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    # Note: If any article that can be published by perticular user then there are Edit Article and Delete Article page renders, if any article not save by logged in user he is not able to see Edit Article and Delete Article instead of that user able to see Follow and favorite/unfavorite article button on the page.
 
-### `npm run build`
+# Note: The basically aim to develop this application to Regisete user, see global feed and local feeds and feeds render according to selected tag, user should able to add/edit/delete article, should able to add/delete comments, should able to mark favorite/unfavorite articls as well.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Tech
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+- [React 16.13.1]
+- [axios 0.19.2]
+- [redux 4.0.5]
+- [typescript 3.9.3]
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Installation
 
-### `npm run eject`
+You can directly access application from deployed instance:
+Path: 
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Take clone from
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+$ git clone https://github.com/Abhishekjsh/article-details-assignment
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Install the dependencies.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+```
+$ cd article-details-assignment
+$ npm install
+$ npm start
+Open http://localhost:3000 in browser
+```

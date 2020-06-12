@@ -3,14 +3,15 @@ import '../userDetails/userDetails.css';
 import BannerUserName from './profileBanner';
 import { Tabs } from 'antd';
 import { Link } from 'react-router-dom';
-import { getFavouriteArticle, getMyArticle } from '../../../store/actions/articleActions';
+import { getFavouriteArticle, getMyArticle, getClickFavouriteArticle } from '../../../store/actions/articleActions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 const { TabPane } = Tabs;
 class userDetails extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
+        this.favouriteBtnClick = this.favouriteBtnClick.bind(this);
     }
 
     componentDidMount() {
@@ -19,12 +20,30 @@ class userDetails extends React.Component {
         getMyArticle({ author: this.props.match.params.author, limit: 20, offset: 0 });
     }
 
+    /**
+     * onTabChange should call while navigating between tabs
+     * {string} key
+     */
     onTabChange = (key) => {
         console.log(key);
     }
 
+    /**
+     * favouriteBtnClick method call to click on favourite button
+     * @param {string} slugData
+     * should call getClickFavouriteArticle method with methodType post/delete evaluate by condition
+     */
+    favouriteBtnClick(slugData) {
+        const { getClickFavouriteArticle } = this.props;
+        if (this.props.FavoriteClickArticles.favorited) {
+            getClickFavouriteArticle({ slug: slugData, methodType: "DELETE" });
+        } else {
+            getClickFavouriteArticle({ slug: slugData, methodType: "POST" });
+        }
+    }
+
     render() {
-        const { FavouriteArticles, MyArticles } = this.props;
+        const { FavouriteArticles, MyArticles, FavoriteClickArticles } = this.props;
         return (
             <div>
                 {/*Call Banner username component & pass props */}
@@ -67,8 +86,10 @@ class userDetails extends React.Component {
                                                     )
                                                 })}
                                             </ul>
-                                            <div className="username-favorite">
-                                                <button> <i></i>{article.favoritesCount}</button>
+                                            <div className="feed-favorite">
+                                                <button className="feed-favorite-btn" onClick={() => this.favouriteBtnClick(article.slug)}>
+                                                    <i></i>{(FavoriteClickArticles && FavoriteClickArticles.favoritesCount) ? FavoriteClickArticles.favoritesCount : article.favoritesCount}
+                                                </button>
                                             </div>
                                         </div>
                                     )
@@ -110,9 +131,9 @@ class userDetails extends React.Component {
                                                     )
                                                 })}
                                             </ul>
-                                            <div className="username-favorite">
-                                                <button>
-                                                    <i></i>{article.favoritesCount}
+                                            <div className="feed-favorite">
+                                                <button className="feed-favorite-btn" onClick={() => this.favouriteBtnClick(article.slug)}>
+                                                    <i></i>{(FavoriteClickArticles && FavoriteClickArticles.favoritesCount) ? FavoriteClickArticles.favoritesCount : article.favoritesCount}
                                                 </button>
                                             </div>
                                         </div>
@@ -131,7 +152,8 @@ class userDetails extends React.Component {
 const mapStateToProps = (state) => {
     return {
         FavouriteArticles: state.Articles.favouriteArticles,
-        MyArticles: state.Articles.myArticles
+        MyArticles: state.Articles.myArticles,
+        FavoriteClickArticles: state.Articles.getClickFavouriteArticles
     };
 };
 
@@ -139,7 +161,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch,
     ...bindActionCreators({
         getFavouriteArticle,
-        getMyArticle
+        getClickFavouriteArticle,
+        getMyArticle,
     },
         dispatch),
 });
