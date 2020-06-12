@@ -216,3 +216,25 @@ ul.tag-list {
     text-shadow: 0 1px 3px rgba(0,0,0,.3);
 }
 
+.feed-favorite{
+    float: right!important;
+    padding: .25rem .5rem;
+    font-size: .875rem;
+    border-radius: .2rem;
+    border: 1px solid transparent;
+}
+.feed-favorite-btn{
+    color: #5cb85c;
+    background-image: none;
+    background-color: transparent;
+    border-color: #5cb85c;
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.25;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    border: 1px solid;
+}

@@ -256,3 +256,16 @@
 .delete-button{
     float: right;
 }
+
+.render-tag{
+    border: 1px solid #ddd;
+    color: #aaa!important;
+    background: 0 0!important;
+    padding-right: .6em;
+    padding-left: .6em;
+    border-radius: 10rem;
+    width: fit-content;
+    margin-bottom: 9px;
+    display: inline-block!important;
+    margin-right: 3px;
+}

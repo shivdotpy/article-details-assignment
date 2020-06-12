@@ -25,10 +25,16 @@ export const getTagLists = async (params) => {
 };
 
 export const getTagDatas = async (params) => {
+  // const token = localStorage.getItem('AuthToken');
   const { limit, offset, tag } = params;
-  const url = `/articles/feed?limit=${limit}&offset=${offset}&tag=${tag}`;
+  let url = '';
+  // if (token) {
+  //   url = `/articles/feed?limit=${limit}&offset=${offset}&tag=${tag}`;
+  // }
+  // else {
+  url = `/articles?limit=${limit}&offset=${offset}&tag=${tag}`;
+  // }
   try {
-
     const { data } = await ApiCall({ url: url, authorizationToken: token });
     return data;
   } catch (e) {
@@ -85,9 +91,9 @@ export const getSlugArticles = async (params) => {
 };
 
 export const getClickFavouriteArticles = async (params) => {
-  const { slug } = params;
+  const { slug, methodType } = params;
   const url = `/articles/${slug}/favorite`;
-  const method = 'post';
+  const method = methodType;
   try {
     const { data } = await ApiCall({ method: method, url: url, authorizationToken: token });
     return data;

@@ -60,6 +60,13 @@ class userDetails extends React.Component {
                                                     <Link to={`/Details/${article.slug}`} className="description-link">Read more...</Link>
                                                 </div>
                                             </div>
+                                            <ul className="feed-tags">
+                                                {(article.tagList && article.tagList.length > 0) && article.tagList.map(tag => {
+                                                    return (
+                                                        <Link to={`/Details/${article.slug}`} className="tag-default tag-pill tag-outline" key={tag}>{tag}</Link>
+                                                    )
+                                                })}
+                                            </ul>
                                             <div className="username-favorite">
                                                 <button> <i></i>{article.favoritesCount}</button>
                                             </div>
@@ -96,6 +103,13 @@ class userDetails extends React.Component {
                                                     <Link to={`/Details/${article.slug}`} className="description-link">Read more...</Link>
                                                 </div>
                                             </div>
+                                            <ul className="feed-tags">
+                                                {(article.tagList && article.tagList.length > 0) && article.tagList.map(tag => {
+                                                    return (
+                                                        <Link to={`/Details/${article.slug}`} className="tag-default tag-pill tag-outline" key={tag}>{tag}</Link>
+                                                    )
+                                                })}
+                                            </ul>
                                             <div className="username-favorite">
                                                 <button>
                                                     <i></i>{article.favoritesCount}

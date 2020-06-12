@@ -2,10 +2,11 @@ import React from "react";
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
-import { getUserFeed, getGlobalFeed, getClickFavouriteArticle, getTagList, getTagData } from '../../store/actions/articleActions';
+import { getUserFeed, getGlobalFeed, getTagList, getTagData } from '../../store/actions/articleActions';
 import { Tabs } from "antd";
 import '../home/home.css';
 import ReactPaginate from 'react-paginate';
+import RenderTab from "./renderTab";
 
 const { TabPane } = Tabs;
 class Home extends React.Component {
@@ -16,9 +17,11 @@ class Home extends React.Component {
             offset: 0,
             perPage: 10,
             currentPage: 0,
-            showTag: false
+            showTag: true,
+            tagName: '',
+            activeTab: "1"
         }
-        this.favouriteBtnClick = this.favouriteBtnClick.bind(this);
+        // this.favouriteBtnClick = this.favouriteBtnClick.bind(this);
     }
 
     componentDidMount() {
@@ -27,10 +30,10 @@ class Home extends React.Component {
         getTagList();
     }
 
-    favouriteBtnClick(slugData) {
-        const { getClickFavouriteArticle } = this.props;
-        getClickFavouriteArticle({ slug: slugData });
-    }
+    // favouriteBtnClick(slugData) {
+    //     const { getClickFavouriteArticle } = this.props;
+    //     getClickFavouriteArticle({ slug: slugData });
+    // }
 
     onPageClick = (e) => {
         const selectedPage = e.selected;
@@ -44,48 +47,63 @@ class Home extends React.Component {
     };
 
     switchTabFn = (key) => {
-        if (!this.state.token || key === "2") {
+        if ((!this.state.token && key === undefined) || key === "2") {
             this.props.getGlobalFeed({ limit: 10, offset: this.state.offset });
             this.setState({ showTag: false });
+            this.setState({
+                activeTab: '2'
+            });
         }
         else if (key === "3") {
+            console.log("come")
             this.setState({ showTag: true });
+            this.setState({
+                activeTab: '3'
+            });
         }
         else {
             this.props.getUserFeed({ limit: 10, offset: this.state.offset })
             this.setState({ showTag: false });
+            this.setState({
+                activeTab: '1'
+            });
         }
     };
 
     clickOnTag = (tag) => {
         this.props.getTagData({ limit: 10, offset: this.state.offset, tag: tag })
-        this.switchTabFn(3)
+        this.setState({ showTag: true });
+        this.setState({ tagName: tag });
+        console.log(this.state.showTag);
+        this.switchTabFn("3")
         console.log(tag);
     }
 
     render() {
-        const { token, showTag } = this.state;
-        const { UserArticles, GlobalArticles, TagList, tagData } = this.props;
+        const { token, showTag, tagName } = this.state;
+        const { UserArticles, GlobalArticles, TagList, TagData } = this.props;
+        console.log("TagData", TagData)
         return (
             <div>
                 <div className="banner">
                     <div className="container-home">
                         <div className="titleHomePage">
                             Feed App
-                </div>
+                    </div>
                         <div className="descriptionBanner">A place to share knowledge.</div>
                     </div>
 
                 </div>
                 <div className="feed-container">
                     <div className="feed-tab">
-                        <Tabs defaultActiveKey="1" size="large" onChange={this.switchTabFn}>
+                        <Tabs activeKey={this.state.activeTab} size="large" onChange={this.switchTabFn}>
                             {token ? (
                                 <TabPane tab="Your Feed" key="1">
                                     {(UserArticles && UserArticles.length > 0) ? UserArticles.map((article, i) => {
                                         return (
                                             <div className="feed-item-container" key={i}>
-                                                <div className="feed-item">
+                                                <RenderTab article={article} />
+                                                {/* <div className="feed-item">
                                                     <div className="feed-user-detail">
                                                         <div>
                                                             <Link to={`/username/${article.author.username}`} ><img alt="" src={article.author.image} className="feed-user-detail-img" height="32px" width="32px" /></Link>
@@ -119,7 +137,7 @@ class Home extends React.Component {
                                                     <button onClick={() => this.favouriteBtnClick(article.slug)}>
                                                         <i></i>{article.favoritesCount}
                                                     </button>
-                                                </div>
+                                                </div> */}
                                             </div>
                                         )
                                     }) : ("No articles live here yet.")
@@ -129,7 +147,8 @@ class Home extends React.Component {
                                 {(GlobalArticles && GlobalArticles.length > 0) ? GlobalArticles.map((article, i) => {
                                     return (
                                         <div className="feed-item-container" key={i}>
-                                            <div className="feed-item">
+                                            <RenderTab article={article} />
+                                            {/* <div className="feed-item">
                                                 <div className="feed-user-detail">
                                                     <div>
                                                         <Link to={`/username/${article.author.username}`} ><img alt="" src={article.author.image} className="feed-user-detail-img" height="32px" width="32px" /></Link>
@@ -163,56 +182,57 @@ class Home extends React.Component {
                                                 <button onClick={() => this.favouriteBtnClick(article.slug)}>
                                                     <i></i>{article.favoritesCount}
                                                 </button>
-                                            </div>
+                                            </div> */}
                                         </div>
                                     )
                                 }) : ("No articles live here yet.")
                                 }
                             </TabPane>
-                            {showTag ? (<TabPane key="3">
-                                {(tagData && tagData.length > 0) && tagData.map((article, i) => {
+                            <TabPane tab={showTag ? "#" + tagName : ''} key="3">
+                                {(TagData && TagData.length > 0) ? TagData.map((article, i) => {
                                     return (
                                         <div className="feed-item-container" key={i}>
-                                            <div className="feed-item">
-                                                <div className="feed-user-detail">
-                                                    <div>
-                                                        <Link to={`/username/${article.author.username}`} ><img alt="" src={article.author.image} className="feed-user-detail-img" height="32px" width="32px" /></Link>
-                                                    </div>
-                                                    <div className="feed-username-date">
-                                                        <div className="feed-username">
-                                                            <Link to={`/username/${article.author.username}`} className="username-link">{article.author.username}</Link>
+                                            <RenderTab article={article} />
+                                            {/* <div className="feed-item">
+                                                    <div className="feed-user-detail">
+                                                        <div>
+                                                            <Link to={`/username/${article.author.username}`} ><img alt="" src={article.author.image} className="feed-user-detail-img" height="32px" width="32px" /></Link>
                                                         </div>
-                                                        <span className="feed-item-date">{new Date(article.createdAt).toDateString()}</span>
+                                                        <div className="feed-username-date">
+                                                            <div className="feed-username">
+                                                                <Link to={`/username/${article.author.username}`} className="username-link">{article.author.username}</Link>
+                                                            </div>
+                                                            <span className="feed-item-date">{new Date(article.createdAt).toDateString()}</span>
+                                                        </div>
                                                     </div>
+                                                    <div className="feed-desc">
+                                                        <div className="feed-desc-title">
+                                                            <Link to={`/Details/${article.slug}`} className="title-link">{article.title}</Link>
+                                                        </div>
+                                                        <div className="feed-desc-info">
+                                                            <Link to={`/Details/${article.slug}`} className="description-link"> {article.description}</Link>
+                                                        </div>
+                                                    </div>
+                                                    <div className="feed-more">
+                                                        <Link to={`/Details/${article.slug}`} className="description-link"> Read more...</Link></div>
                                                 </div>
-                                                <div className="feed-desc">
-                                                    <div className="feed-desc-title">
-                                                        <Link to={`/Details/${article.slug}`} className="title-link">{article.title}</Link>
-                                                    </div>
-                                                    <div className="feed-desc-info">
-                                                        <Link to={`/Details/${article.slug}`} className="description-link"> {article.description}</Link>
-                                                    </div>
-                                                </div>
-                                                <div className="feed-more">
-                                                    <Link to={`/Details/${article.slug}`} className="description-link"> Read more...</Link></div>
-                                            </div>
-                                            <ul className="feed-tags">
-                                                {(article.tagList && article.tagList.length > 0) && article.tagList.map(tag => {
-                                                    return (
-                                                        <li className="tag-default tag-pill tag-outline" key={tag}>{tag}</li>
-                                                    )
-                                                })}
-                                            </ul>
-                                            <div className="feed-favorite">
-                                                <button onClick={() => this.favouriteBtnClick(article.slug)}>
-                                                    <i></i>{article.favoritesCount}
-                                                </button>
-                                            </div>
+                                                <ul className="feed-tags">
+                                                    {(article.tagList && article.tagList.length > 0) && article.tagList.map(tag => {
+                                                        return (
+                                                            <li className="tag-default tag-pill tag-outline" key={tag}>{tag}</li>
+                                                        )
+                                                    })}
+                                                </ul>
+                                                <div className="feed-favorite">
+                                                    <button onClick={() => this.favouriteBtnClick(article.slug)}>
+                                                        <i></i>{article.favoritesCount}
+                                                    </button>
+                                                </div> */}
                                         </div>
                                     )
-                                })
+                                }) : ("No articles live here yet.")
                                 }
-                            </TabPane>) : ""}
+                            </TabPane>)
                         </Tabs>
                         < ReactPaginate
                             previousLabel={"prev"}
@@ -230,7 +250,7 @@ class Home extends React.Component {
                         <div style={{ marginTop: 10 }}>
                             {(TagList && TagList.length > 0) && TagList.map((tags, i) => {
                                 return (
-                                    <Link to="" key={tags} className="tag-item">{tags}</Link>
+                                    <Link to="" key={tags} onClick={() => this.clickOnTag(tags)} className="tag-item">{tags}</Link>
                                 )
                             })
                             }
@@ -260,8 +280,8 @@ const mapDispatchToProps = dispatch => ({
         getUserFeed,
         getGlobalFeed,
         getTagData,
-        getTagList,
-        getClickFavouriteArticle
+        getTagList
+        // getClickFavouriteArticle
     },
         dispatch),
 });

@@ -7,18 +7,20 @@ import { withRouter, Link } from 'react-router-dom';
 import { postCommentData, getCommentData, getDeleteData } from '../../../store/actions/commentActions';
 import { getUserFeed, getGlobalFeed, getTagList } from '../../../store/actions/articleActions';
 
-const username = localStorage.getItem('UserName');
 class Details extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      comment: ''
+      comment: '',
+      username: ''
     }
     this.publishComment = this.publishComment.bind(this);
     this.onChangeCommentValue = this.onChangeCommentValue.bind(this);
   }
 
   componentDidMount() {
+    let username = localStorage.getItem('UserName');
+    this.setState({ username: username })
     const { getSlugArticle, getComment, getCommentData } = this.props;
     getSlugArticle({ slug: this.props.match.params.slug });
     getCommentData({ slug: this.props.match.params.slug });
@@ -84,8 +86,8 @@ class Details extends React.Component {
   render() {
     let flagFollow = false;
     const { SlugArticles, getComment } = this.props;
-    if (SlugArticles && SlugArticles.author?.username && username) {
-      if (username == SlugArticles.author.username) {
+    if (SlugArticles && SlugArticles.author?.username && this.state.username) {
+      if (this.state.username == SlugArticles.author.username) {
         flagFollow = true;
       }
     }
@@ -132,6 +134,15 @@ class Details extends React.Component {
           <div className="detail-item-container">
             <div className="title-desc">
               <div className="detail-title">{this.props?.SlugArticles.body}</div>
+              <div style={{ marginTop: 10 }}>
+                {(SlugArticles.tagList && SlugArticles.tagList.length > 0) && SlugArticles.tagList.map((tags, i) => {
+                  return (
+                    // <Link to="" key={tags} onClick={() => this.clickOnTag(tags)} className="tag-item">{tags}</Link>
+                    <div className="render-tag">{tags}</div>
+                  )
+                })
+                }
+              </div>
             </div>
             <div className="deatil-post-container">
               <div className="avtar-img-post">
@@ -165,7 +176,7 @@ class Details extends React.Component {
                     </>
                   )}
               </div>
-              {username ? (
+              {this.state?.username ? (
                 <>
                   <form className="comment comment-form" onSubmit={this.publishComment}>
                     <div className="comment-block">

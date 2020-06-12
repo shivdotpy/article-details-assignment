@@ -57,7 +57,7 @@ export const getTagData = (params) => {
         .then((data) => {
           dispatch({
             type: 'GET_USER_TAG_DATA_SUCCESS',
-            payload: data.tags,
+            payload: data.articles,
           });
           return data;
         })
