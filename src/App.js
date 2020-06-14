@@ -18,14 +18,14 @@ function App() {
       <Router>
         <Header>
         </Header>
-        <Switch>
-          <Route exact path='/' component={Home} />
-          <Route path='/signin' component={SignIn} />
-          <Route path='/signup' component={SignUp} />
-          <Route path='/article/:slug?' component={addPost} />
-          <Route path='/details/:slug' component={Details} />
-          <Route path='/username/:author' component={userDetails} />
-        </Switch>
+        {/* <Switch> */}
+        <Route exact path='/' component={Home} />
+        <Route path='/signin' component={SignIn} />
+        <Route path='/signup' component={SignUp} />
+        <Route path='/article/:slug?' component={addPost} />
+        <Route path='/details/:slug' component={Details} />
+        <Route path='/username/:author' component={userDetails} />
+        {/* </Switch> */}
       </Router>
     </Provider>
   );
